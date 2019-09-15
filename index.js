@@ -3,32 +3,30 @@
 // -------------- load packages -------------- //
 // INITIALIZATION STUFF
 
-var express = require('express')
+var express = require('express');
 var app = express();
+var path = require('path');
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/img', express.static(path.join(__dirname, 'img')));
+var hbs = require('hbs');
+app.set('view engine', 'hbs');
 
 
 // -------------- express initialization -------------- //
 // PORT SETUP - NUMBER SPECIFIC TO THIS SYSTEM
 
-app.set('port', process.env.PORT || 8080 );
+// app.set('port', process.env.PORT || 8080 );
+app.set('port', 80);
 
 
 // -------------- express 'get' handlers -------------- //
 // These 'getters' are what fetch your pages
 
 app.get('/', function(req, res){
-    res.send('wilkommen und hallo');
+    // res.send('wilkommen und hallo');
+    res.render('home.hbs');
 });
-
-app.get('/foo', function(req, res){
-    res.send('requested foo');
-});
-
-app.get('/not_a_search', function(req, res){
-    var theQuery = req.query.q;
-    res.send('query parameter:' + theQuery);
-});
-
 
 
 // -------------- listener -------------- //
